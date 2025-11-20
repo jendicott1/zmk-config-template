@@ -35,7 +35,7 @@ jobs:
         run: west zephyr-export
       # --- START HARDCODED FIX (Step 54) ---
       - name: West Build (Pi Media Controller)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=uart_ble_key -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=uart_ble_key -DZMK_CONFIG="${GITHUB_WORKSPACE}/config" -DZMK_EXTRA_MODULES="${GITHUB_WORKSPACE}/config/app"
       - name: Pi Media Controller DTS File
         if: ${{ always() }}
         run: cat -n build/zephyr/nice_nano_v2.dts.pre.tmp
