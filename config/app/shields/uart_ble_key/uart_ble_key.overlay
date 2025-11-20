@@ -1,0 +1,27 @@
+/*
+ * Nice! Nano Devicetree Overlay for UART Control
+ * File: uart_ble_key.overlay
+ *
+ * This enables UART1 on the nRF52840 and aliases it for the C code.
+ * It uses P0.08 for RX (receiving data from Pi) and P0.06 for TX.
+ * (P0.08 = Nice! Nano D3, P0.06 = Nice! Nano D1)
+ */
+
+/ {
+    // Create an alias for the UART device node so our C code can easily find it.
+    aliases {
+        uart-pi = &uart1;
+    };
+};
+
+&uart1 {
+    compatible = "nordic,nrf-uarte";
+    current-speed = <115200>; // Common baud rate for Pi connection
+    status = "okay";
+
+    // Assign pins:
+    // P0.06 is used for TX (Nice! Nano D1) - Transmit (from Nano to Pi)
+    // P0.08 is used for RX (Nice! Nano D3) - Receive (from Pi to Nano)
+    tx-pin = <6>;  // P0.06
+    rx-pin = <8>;  // P0.08
+};

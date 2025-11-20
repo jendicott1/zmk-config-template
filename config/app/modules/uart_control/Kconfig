@@ -1,0 +1,8 @@
+# This Kconfig enables the custom C module
+
+config ZMK_MODULE_UART_CONTROL
+    bool "UART Command Control Module"
+    default y
+    depends on ZMK_KEYBOARD_NAME_PI_MEDIA_CONTROLLER
+    help
+      Enable the custom module to listen for UART commands and generate HID events.
