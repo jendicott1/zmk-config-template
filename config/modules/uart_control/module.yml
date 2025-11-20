@@ -1,0 +1,8 @@
+# File: module.yml
+# Location: app/modules/uart_control/module.yml
+
+# Registers the custom module files with the ZMK build system
+name: uart_control
+arch: [arm]
+kconfig: Kconfig
+source_dir: src

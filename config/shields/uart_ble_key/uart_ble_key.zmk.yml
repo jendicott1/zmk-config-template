@@ -1,0 +1,6 @@
+file_format: "1"
+id: uart_ble_key
+name: "UART BLE Key"
+type: shield
+url: https://github.com/zmkfirmware
+requires: [nice_nano_v2]
