@@ -10,9 +10,9 @@ jobs:
     name: Build
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4 # FIX: Updated from v2 to v4
       - name: Cache west modules
-        uses: actions/cache@v2
+        uses: actions/cache@v4 # FIX: Updated from v2 to v4
         env:
           cache-name: cache-zephyr-modules
         with:
@@ -33,17 +33,19 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
+      # --- START HARDCODED FIX (Step 54) ---
       - name: West Build (Pi Media Controller)
         run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=uart_ble_key -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: KEYBOARD_TITLE DTS File
+      - name: Pi Media Controller DTS File
         if: ${{ always() }}
-        run: cat -n build/zephyr/BOARD_NAME.dts.pre.tmp
-      - name: KEYBOARD_TITLE Kconfig file
+        run: cat -n build/zephyr/nice_nano_v2.dts.pre.tmp
+      - name: Pi Media Controller Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 uart_ble_key_nice_nano_n2.uf2
+        run: cp build/zephyr/zmk.uf2 uart_ble_key_nice_nano_v2.uf2
       - name: Archive (Pi Media Controller)
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4 # FIX: Updated from v2 to v4
         with:
           name: firmware
           path: uart_ble_key_nice_nano_v2.uf2
+      # --- END HARDCODED FIX ---
